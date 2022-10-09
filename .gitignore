@@ -1,3 +1,4 @@
 /WebNet/static/
 /WebNet/wiki/site/
 /WebNet/db.sqlite3
+/WebNet/blog/migrations/
