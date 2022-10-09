@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+# django-debug-toolbar
+INTERNAL_IPS = [
+    ...,
+    '127.0.0.1',
+    ...,
+]
+
 """
 Django settings for WebNet project.
 
@@ -56,12 +63,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.humanize',  # https://docs.djangoproject.com/en/4.1/ref/contrib/humanize/
+    'debug_toolbar',  # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#install-the-app
+    # 'channels',  # https://channels.readthedocs.io/en/stable/installation.html#installation
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
 
     'crispy_forms',
     'ckeditor',
 
     'django_cleanup.apps.CleanupConfig',  # the package must be the last one
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,6 +90,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  # django-debug-toolbar
 ]
 
 ROOT_URLCONF = 'WebNet.urls'
@@ -90,6 +110,20 @@ TEMPLATES = [
         },
     },
 ]
+
+# django-allauth
+# https://django-allauth.readthedocs.io/en/latest/installation.html#installation
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# End django-allauth
+
 
 WSGI_APPLICATION = 'WebNet.wsgi.application'
 
@@ -180,3 +214,62 @@ CKEDITOR_CONFIG = {
 }
 
 # End django-ckeditor
+
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+    'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+    }
+}
+
+
+# django-channels
+# https://channels.readthedocs.io/en/stable/installation.html#installation
+
+# ASGI_APPLICATION = 'WebNet.routing.application'
+#
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels.layers.InMemoryChannelLayer'
+#     },
+# }
+
+# End django-channels
+
+
+# email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
+
+# End email
+
+
+GOOGLE_RECAPTCHA_SECRET_KEY = os.getenv('GOOGLE_RECAPTCHA_SECRET_KEY')
+
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

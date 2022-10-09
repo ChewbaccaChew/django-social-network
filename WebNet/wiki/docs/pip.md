@@ -6,7 +6,7 @@
 
 `pip install django-crispy-forms==1.14.0`
 
-settings:
+settings.py:
 ```python
 INSTALLED_APPS = [
     ...,
@@ -22,7 +22,7 @@ CRISPY_TEMPLATE_PACK = 'uni_form'
 
 `pip install django-cleanup==6.0.0`
 
-settings:
+settings.py:
 ```python
 INSTALLED_APPS = [
     ...,
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 
 `pip install django-ckeditor==6.5.1`
 
-settings:
+settings.py:
 ```python
 INSTALLED_APPS = [
     ...,
@@ -58,18 +58,117 @@ CKEDITOR_CONFIG = {
 
 `python -m pip install -U channels==3.0.5`
 
+settings.py:
+```python
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    ...,
+    'channels',  # this
+)
+```
+and:
+```python
+ASGI_APPLICATION = 'WebNet.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    },
+}
+```
+
+add file routing.py to configuration package (WebNet/WebNet/):
+```python
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
+import chat.routing
+
+application = ProtocolTypeRouter({
+    'websocket': AuthMiddlewareStack(
+        URLRouter(
+            chat.routing.websocket_urlpatterns
+        )
+    ),
+})
+```
+
 ## Настройка [django-allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
 
 `pip install django-allauth==0.51.0`
+
+settings.py:
+```python
+AUTHENTICATION_BACKENDS = [
+    ...,
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    ...,
+]
+```
+and:
+```python
+INSTALLED_APPS = [
+    ...,
+    'django.contrib.auth',
+    'django.contrib.messages',
+    'django.contrib.sites',  # this
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
+    ...,
+]
+
+SITE_ID = 1
+```
+and:
+```python
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+    'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+    }
+}
+```
+
+urls.py:
+```python
+from django.urls import include
+
+urlpatterns = [
+    ...,
+    path('accounts/', include('allauth.urls')),
+    ...,
+]
+```
 
 ## Настройка [dotenv](https://github.com/theskumar/python-dotenv)
 
 `pip install python-dotenv==0.21.0`
 
-settings:
+settings.py:
 ```python
-from pathlib import Path
-
 from dotenv import load_dotenv
 
 # Loading ENV
@@ -103,3 +202,48 @@ SECRET_KEY = 'your_key'
 ## Настройка [mkdocs-material](https://squidfunk.github.io/mkdocs-material/getting-started/)
 
 `pip install mkdocs-material==8.5.6`
+
+## Настройка [django-debug-toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/)
+
+`python -m pip install django-debug-toolbar==3.7.0`
+
+settings.py:
+```python
+INSTALLED_APPS = [
+    ...,
+    'debug_toolbar',
+    ...,
+]
+```
+and:
+```python
+MIDDLEWARE = [
+    ...,
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ...,
+]
+```
+and:
+```python
+INTERNAL_IPS = [
+    ...,
+    '127.0.0.1',
+    ...,
+]
+```
+
+urls.py:
+```python
+urlpatterns = [
+    ...,
+    path('__debug__/', include('debug_toolbar.urls')),
+]
+```
+or:
+```python
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+```
