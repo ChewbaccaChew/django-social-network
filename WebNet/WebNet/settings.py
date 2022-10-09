@@ -14,6 +14,20 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os.path
 from pathlib import Path
 
+from django.contrib.messages import constants as messages
+
+# python-dotenv
+# https://github.com/theskumar/python-dotenv
+
+from dotenv import load_dotenv
+
+# Loading ENV
+env_path = Path('.')/'.env'
+load_dotenv(dotenv_path=env_path)
+
+# End python-dotenv
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +36,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e&o%&u_k8pwqaq3#51lig=ox%zvdezlkqjzmoezt1ry=1%(^57'
+# SECRET_KEY = 'django-insecure-e&o%&u_k8pwqaq3#51lig=ox%zvdezlkqjzmoezt1ry=1%(^57'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,12 +49,18 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
+    'ckeditor',
+
+    'django_cleanup.apps.CleanupConfig',  # the package must be the last one
 ]
 
 MIDDLEWARE = [
@@ -139,3 +160,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# django-crispy-forms
+# https://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
+# End django-crispy-forms
+
+
+# django-ckeditor
+# https://github.com/django-ckeditor/django-ckeditor
+
+CKEDITOR_CONFIG = {
+    'default': {
+        'width': 'auto',
+    },
+}
+
+# End django-ckeditor
