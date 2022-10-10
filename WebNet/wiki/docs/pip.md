@@ -2,6 +2,7 @@
 
 `pip install django==4.1.2`
 
+
 ## Настройка [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/install.html)
 
 `pip install django-crispy-forms==1.14.0`
@@ -18,6 +19,7 @@ and:
 CRISPY_TEMPLATE_PACK = 'uni_form'
 ```
 
+
 ## Настройка [django-cleanup](https://github.com/un1t/django-cleanup)
 
 `pip install django-cleanup==6.0.0`
@@ -30,9 +32,11 @@ INSTALLED_APPS = [
 ]
 ```
 
+
 ## Настройка [pillow](https://pillow.readthedocs.io/en/stable/installation.html#windows-installation)
 
 `pip install pillow==9.2.0`
+
 
 ## Настройка [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor)
 
@@ -53,6 +57,7 @@ CKEDITOR_CONFIG = {
     },
 }
 ```
+
 
 ## Настройка [django-channels](https://channels.readthedocs.io/en/stable/)
 
@@ -94,6 +99,7 @@ application = ProtocolTypeRouter({
     ),
 })
 ```
+
 
 ## Настройка [django-allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
 
@@ -163,6 +169,7 @@ urlpatterns = [
 ]
 ```
 
+
 ## Настройка [dotenv](https://github.com/theskumar/python-dotenv)
 
 `pip install python-dotenv==0.21.0`
@@ -191,17 +198,21 @@ SECRET_KEY = 'your_key'
 
 `pip install django-braces==1.15.0`
 
+
 ## Настройка [mkdocs](https://www.mkdocs.org/)
 
 `pip install mkdocs==1.4.0`
+
 
 ## Настройка [mkdocs-awesome-pages-plugin](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin/)
 
 `pip install mkdocs-awesome-pages-plugin==2.8.0`
 
+
 ## Настройка [mkdocs-material](https://squidfunk.github.io/mkdocs-material/getting-started/)
 
 `pip install mkdocs-material==8.5.6`
+
 
 ## Настройка [django-debug-toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/)
 
@@ -246,4 +257,63 @@ if settings.DEBUG:
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+```
+
+
+## Настройка [jupyter-notebook](https://jupyter.org/install#jupyter-notebook)
+
+`pip install notebook==6.4.12`
+
+хз че это:
+settings.py:
+```python
+# в производстве убрать!
+os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = 'True'
+```
+
+show notebook settings: `python -m pip show notebook`
+run the notebook: `python manage.py shell_plus --notebook`
+
+[jupyter-notebooks-themes](https://github.com/dunovank/jupyter-themes#install-with-pip)
+
+`pip install jupyterthemes`
+
+list available themes
+onedork | grade3 | oceans16 | chesterish | monokai | solarizedl | solarizedd
+`jt -l`
+
+select theme...
+`jt -t chesterish`
+
+restore default theme
+NOTE: Need to delete browser cache after running jt -r
+If this doesn't work, try starting a new notebook session.
+`jt -r`
+
+[jupyter autocomplete](https://github.com/codota/jupyter-tabnine) - это не использовал
+
+[nbextensions](https://www.cnblogs.com/qiuxirufeng/p/9609031.html):
+установка nbextensions:
+`pip install jupyter_contrib_nbextensions`
+`jupyter contrib nbextension install --user`
+
+установка nbextensions_configurator:
+`pip install jupyter_nbextensions_configurator`
+`jupyter nbextensions_configurator enable --user`
+
+поставить галочку на Hinterland в Nbextensions
+если на странице нет элемента Hinterland или она неполная:
+`jupyter contrib nbextension install --user --skip-running-check`
+
+
+## Настройка [django-extensions](https://django-extensions.readthedocs.io/en/latest/#)
+
+`pip install django-extensions==3.2.1`
+
+settings.py:
+```python
+INSTALLED_APPS = [
+    ...,
+    'django_extensions',
+]
 ```

@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.humanize',  # https://docs.djangoproject.com/en/4.1/ref/contrib/humanize/
-    'debug_toolbar',  # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#install-the-app
+    'django_extensions',  # https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
     # 'channels',  # https://channels.readthedocs.io/en/stable/installation.html#installation
 
     'allauth',
@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
 
+    'debug_toolbar',  # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#install-the-app
     'crispy_forms',
     'ckeditor',
 
@@ -273,3 +274,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+# в производстве убрать!
+os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = 'True'
