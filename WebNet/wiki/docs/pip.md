@@ -317,3 +317,8 @@ INSTALLED_APPS = [
     'django_extensions',
 ]
 ```
+
+
+## Настройка [django-taggit](https://django-taggit.readthedocs.io/en/latest/)
+
+`pip install django-taggit==3.0.0`
