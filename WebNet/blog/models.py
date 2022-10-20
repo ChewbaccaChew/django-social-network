@@ -13,7 +13,7 @@ class Post(models.Model):
         verbose_name_plural = 'Создать посты'
 
     title = models.CharField(max_length=200, help_text='Не более 200 символов', db_index=True)
-    # content = models.TextField(max_length=5000, blank=True, null=True, help_text='Не более 5000 символов')
+    # content = models.TextField(max_length=5000, help_text='Не более 5000 символов')
     content = RichTextField(max_length=5000, blank=True, null=True, help_text='Не более 5000 символов')
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True)
