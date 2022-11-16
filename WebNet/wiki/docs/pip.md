@@ -322,3 +322,28 @@ INSTALLED_APPS = [
 ## Настройка [django-taggit](https://django-taggit.readthedocs.io/en/latest/)
 
 `pip install django-taggit==3.0.0`
+
+
+
+## Настройка [pytest-django](https://pytest-django.readthedocs.io/en/latest/)
+
+`pip install pytest-django==4.5.2`
+
+add file pytest.ini to project root:
+```
+# -- FILE: pytest.ini (or tox.ini)
+[pytest]
+DJANGO_SETTINGS_MODULE = your_project.settings
+# -- recommended but optional:
+python_files = tests.py test_*.py *_tests.py
+```
+
+запуск всех тестов: `pytest`
+запуск тестов находящихся по пути path: `pytest path`
+запуск всех тестов в модуле test_some_function: `pytest test_some_function.py`
+запуск функции test_one в модуле test_some_function: `pytest test_some_function.py::test_one`
+
+
+## Настройка [pylint](https://github.com/PyCQA/pylint)
+
+`pip install pylint==2.15.5`

@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# django-debug-toolbar
-INTERNAL_IPS = [
-    ...,
-    '127.0.0.1',
-    ...,
-]
-
 """
 Django settings for WebNet project.
 
@@ -18,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os.path
 from pathlib import Path
 
@@ -55,8 +49,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'blog.apps.BlogConfig',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,6 +69,8 @@ INSTALLED_APPS = [
     'debug_toolbar',  # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#install-the-app
     'crispy_forms',
     'ckeditor',
+
+    'blog.apps.BlogConfig',
 
     'django_cleanup.apps.CleanupConfig',  # the package must be the last one
 ]
@@ -122,6 +116,26 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+    'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+    }
+}
 
 # End django-allauth
 
@@ -217,27 +231,6 @@ CKEDITOR_CONFIG = {
 # End django-ckeditor
 
 
-# Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    },
-    'github': {
-        'SCOPE': [
-            'user',
-            'repo',
-            'read:org',
-        ],
-    }
-}
-
-
 # django-channels
 # https://channels.readthedocs.io/en/stable/installation.html#installation
 
@@ -274,6 +267,17 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+
+# django-debug-toolbar
+INTERNAL_IPS = [
+    ...,
+    '127.0.0.1',
+    ...,
+]
+
+# End django-debug-toolbar
+
 
 # в производстве убрать!
 os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = 'True'

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.models import User
+from django.urls.base import reverse_lazy
 
 from .models import Post
 
@@ -14,9 +15,16 @@ class UserPostListView(ListView):
 
     # objects, model_постфикс, наш вариант
     # контекст переменная хранения данных
-    # представление-модель-что это
-    context_object_name = 'blog_post_user_list'
+    # представление-модель-что_это
+    # context_object_name = 'blog_post_user_list'
 
-    def get_queryset(self):
+    # def get_queryset(self):
+    #     user = get_object_or_404(User, username=self.kwargs.get('username'))
+    #     return Post.objects.filter(author=user).order_by('-date_created')
+
+    def get_context_data(self, **kwargs):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_created')
+        queryset = Post.objects.filter(author=user)
+        context = super().get_context_data(**kwargs)
+        context['blog_post_user_list'] = queryset.order_by('-date_created')
+        return context
