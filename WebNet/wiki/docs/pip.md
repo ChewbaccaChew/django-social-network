@@ -347,3 +347,8 @@ python_files = tests.py test_*.py *_tests.py
 ## Настройка [pylint](https://github.com/PyCQA/pylint)
 
 `pip install pylint==2.15.5`
+
+
+## Настройка [pytils](https://github.com/last-partizan/pytils/)
+
+`pip install pytils==0.4.1`

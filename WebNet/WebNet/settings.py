@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'ckeditor',
 
     'blog.apps.BlogConfig',
+    'discussions.apps.DiscussionsConfig',
 
     'django_cleanup.apps.CleanupConfig',  # the package must be the last one
 ]
@@ -214,7 +215,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django-crispy-forms
 # https://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # End django-crispy-forms
 

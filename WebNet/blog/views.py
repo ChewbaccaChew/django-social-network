@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth.models import User
-from django.urls.base import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post
 
@@ -28,3 +28,17 @@ class UserPostListView(ListView):
         context = super().get_context_data(**kwargs)
         context['blog_post_user_list'] = queryset.order_by('-date_created')
         return context
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class PostDetailView(DetailView):
+    model = Post
+    context_object_name = 'blog_post_detail'
