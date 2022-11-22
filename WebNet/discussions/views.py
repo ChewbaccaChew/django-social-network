@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import Discussion
 from .forms import DiscussionCreateForm
@@ -36,8 +39,9 @@ def discussion_create(request):
 
         if form.is_valid():
             new_discussion = form.save(commit=False)
-            new_discussion = request.user
+            new_discussion.author = request.user
             new_discussion.save()
+            messages.success(request, 'Дискуссия успешно добавлена')
             return redirect(new_discussion.get_absolute_url())
 
     else:
