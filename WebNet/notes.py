@@ -3,7 +3,7 @@
 https://docs.djangoproject.com/en/4.0/#forms
 todo: Работа с формами.
 
-? Создать приложение app_form
+? Создать приложение forms_app ++
 
 ? Из чего состоят формы
 

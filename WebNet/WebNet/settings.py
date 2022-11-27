@@ -72,6 +72,7 @@ INSTALLED_APPS = [
 
     'blog.apps.BlogConfig',
     'discussions.apps.DiscussionsConfig',
+    'forms_app.apps.FormsAppConfig',
 
     'django_cleanup.apps.CleanupConfig',  # the package must be the last one
 ]
