@@ -71,7 +71,6 @@ INSTALLED_APPS = [
     'ckeditor',
 
     'blog.apps.BlogConfig',
-    'discussions.apps.DiscussionsConfig',
 
     'django_cleanup.apps.CleanupConfig',  # the package must be the last one
 ]
