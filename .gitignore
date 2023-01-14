@@ -1,4 +1,10 @@
-/WebNet/static/
-/WebNet/wiki/site/
+/WebNet/blog/tests_blog/__pycache__/*
+/WebNet/blog/__pycache__/*
+/WebNet/blog/migrations/*
+!/WebNet/blog/migrations/__init__.py
+/WebNet/WebNet/__pycache__/*
+/WebNet/wiki/site/*
+/WebNet/static/*
 /WebNet/db.sqlite3
-
+/WebNet/.env
+/.idea/*
