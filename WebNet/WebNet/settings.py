@@ -41,7 +41,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'DEBUG'
 
 ALLOWED_HOSTS = ['*']
 
@@ -255,12 +255,14 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_EMAIL_USER')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # End email
 
@@ -287,5 +289,6 @@ INTERNAL_IPS = [
 # End django-debug-toolbar
 
 
+# для jupyter
 # в производстве убрать!
 os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = 'True'
